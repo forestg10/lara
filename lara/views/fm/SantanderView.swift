@@ -890,7 +890,32 @@ private struct santanderfileview: View {
     }
 
     private func save() {
-        let data = Data(text.utf8)
+        let data: Data
+
+        if item.path.hasSuffix(".plist") {
+            do {
+                let obj = try PropertyListSerialization.propertyList(
+                    from: Data(text.utf8),
+                    options: [],
+                    format: nil
+                )
+
+                data = try PropertyListSerialization.data(
+                    fromPropertyList: obj,
+                    format: .binary,
+                    options: 0
+                )
+            } catch {
+                msg = santandermsg(
+                    title: "Save Failed",
+                    text: "Invalid plist format."
+                )
+                return
+            }
+        } else {
+            data = Data(text.utf8)
+        }
+        
         let ok = santanderfs.writefile(path: item.path, data: data, readsbx: readsbx, writevfs: writevfs)
         if ok {
             editing = false
