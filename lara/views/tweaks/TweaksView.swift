@@ -31,7 +31,7 @@ struct TweaksView: View {
                 Section(header: HeaderLabel(text: "Apps", icon: "app")) {
                     NavigationLink("Card Overwrite", destination: CardView())
                         .disabled(!mgr.vfsready)
-                    NavigationLink("3 App Bypass", destination: AppsView(mgr: mgr))
+                    NavigationLink("3 App Bypass", destination: AppsView())
                         .disabled(!mgr.sbxready)
                     NavigationLink("Unblacklist", destination: WhitelistView())
                         .disabled(!mgr.sbxready)
