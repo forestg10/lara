@@ -395,7 +395,7 @@ struct GestaltView: View {
                 let cacheExtra = mgCurrentDict["CacheExtra"] as? NSMutableDictionary else {
             return State(initialValue: false).projectedValue
         }
-        let valueOffset = FindCacheDataOffset("mtrAoWJ3gsq+I90ZnQ0vQw")
+        let valueOffset = findcachedataoff("mtrAoWJ3gsq+I90ZnQ0vQw")
         let keys = [
             "uKc7FPnEO++lVhHWHFlGbQ", // ipad
             "mG0AnH/Vy1veoqoLRAIgTA", // MedusaFloatingLiveAppCapability
@@ -453,9 +453,9 @@ struct GestaltView: View {
             return State(initialValue: false).projectedValue
         }
         
-        let off_appleInternalInstall = FindCacheDataOffset("EqrsVvjcYDdxHBiQmGhAWw")
-        let off_HasInternalSettingsBundle = FindCacheDataOffset("Oji6HRoPi7rH7HPdWVakuw")
-        let off_InternalBuild = FindCacheDataOffset("LBJfwOEzExRxzlAnSuI7eg")
+        let off_appleInternalInstall = findcachedataoff("EqrsVvjcYDdxHBiQmGhAWw")
+        let off_HasInternalSettingsBundle = findcachedataoff("Oji6HRoPi7rH7HPdWVakuw")
+        let off_InternalBuild = findcachedataoff("LBJfwOEzExRxzlAnSuI7eg")
         
         return Binding(
             get: {

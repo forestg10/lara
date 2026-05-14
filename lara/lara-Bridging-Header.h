@@ -17,7 +17,7 @@
 #import "rc.h"
 #import "RemoteCall.h"
 
-long FindCacheDataOffset(const char *mgKey);
+long findcachedataoff(const char *mgkey);
 void LaraClearIconCache(void);
 
 @interface UIDevice(Private)
