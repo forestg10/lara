@@ -87,10 +87,8 @@ struct SettingsView: View {
                                     return
                                 }
 
-                                let dlkc = dlkcache()
-
                                 DispatchQueue.main.async {
-                                    mgr.hasOffsets = dlkc
+                                    mgr.hasOffsets = false
                                     dlingkcache = false
                                 }
                             }

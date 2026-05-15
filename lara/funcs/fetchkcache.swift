@@ -18,6 +18,18 @@ func larakcpath() -> String? {
 }
 
 func fetchkcache() -> Bool {
+    guard ds_is_ready(),
+          off_proc_p_fd != 0,
+          off_filedesc_fd_ofiles != 0,
+          off_fileproc_fp_glob != 0,
+          off_fileglob_fg_data != 0,
+          off_vnode_v_data != 0,
+          off_namecache_nc_vp != 0,
+          off_namecache_nc_child_tqe_next != 0 else {
+        globallogger.log("(fetchkcache) exploit or offsets not ready")
+        return false
+    }
+
     guard let kcpath = syskcpath() else {
         globallogger.log("(fetchkcache) failed to get kernelcache path")
         return false
@@ -100,9 +112,22 @@ func fetchkcache() -> Bool {
     if !FileManager.default.fileExists(atPath: outpath) || totalBytes == 0 {
         globallogger.log("(fetchkcache) kernelcache output missing")
         return false
-    } else {
-        globallogger.log("(fetchkcache) kernelcache fetch success!")
     }
 
+    guard let handle = FileHandle(forReadingAtPath: outpath) else {
+        globallogger.log("(fetchkcache) kernelcache output missing")
+        return false
+    }
+
+    let magic = handle.readData(ofLength: 2)
+    handle.closeFile()
+
+    guard magic.count == 2, magic[magic.startIndex] == 0x30, magic[magic.index(after: magic.startIndex)] == 0x84 else {
+        unlink(outpath)
+        globallogger.log("(fetchkcache) invalid kernelcache output")
+        return false
+    }
+
+    globallogger.log("(fetchkcache) kernelcache fetch success!")
     return true
 }
