@@ -79,16 +79,17 @@ struct SettingsView: View {
                                 let fetched = fetchkcache()
 
                                 if fetched {
-                                    let dlkc = dlkcache()
                                     DispatchQueue.main.async {
-                                        mgr.hasOffsets = dlkc
+                                        mgr.hasOffsets = true
                                         dlingkcache = false
                                     }
                                     return
                                 }
 
+                                let dlkc = dlkcache()
+
                                 DispatchQueue.main.async {
-                                    mgr.hasOffsets = false
+                                    mgr.hasOffsets = dlkc
                                     dlingkcache = false
                                 }
                             }
